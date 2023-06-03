@@ -1,0 +1,22 @@
+export enum AnimalTypes {
+    mammals = 'mammals',
+    birds = 'birds',
+    reptiles = 'reptiles',
+    amphibians = 'amphibians',
+    fish = 'fish',
+    invertebrates = 'invertebrates',
+    arthropods = 'arthropods',
+    insects = 'insects',
+    crustaceans = 'crustaceans',
+    mollusks = 'mollusks',
+    echinoderms = 'echinoderms',
+    cnidarians = 'cnidarians',
+    chordates = 'chordates',
+    primates = 'primates',
+    carnivores = 'carnivores',
+    herbivores = 'herbivores',
+    omnivores = 'omnivores',
+    marsupials = 'marsupials',
+    rodents = 'rodents',
+    aquatic_animals = 'aquatic animals'
+}

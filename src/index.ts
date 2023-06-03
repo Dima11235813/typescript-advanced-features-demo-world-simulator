@@ -1,4 +1,4 @@
-import { Earth } from "./generics-demo";
+import { Earth } from "./earth";
 
 const newEarth = new Earth()
 console.log(`Earth created!`)
