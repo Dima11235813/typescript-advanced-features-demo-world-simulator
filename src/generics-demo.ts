@@ -28,16 +28,23 @@ export class BaseAnimal implements IAnimal {
     reproductionCycle = 24
     numberOfLegs: number = 0
     age: number
+    // getRandomType<T>():T{
+
+    // }
+    /** TODO Create a generic version of this as in */
+    static getRandomType(): AnimalTypes {
+        const allTypes = Object.values(AnimalTypes)
+        const randomNumber = Math.floor(Math.random() * allTypes.length)
+        return allTypes[randomNumber]
+    }
     constructor(
         public type: AnimalTypes,
         public name = "") {
         this.age = 1
     }
     reproduce = (world: World) => {
-
         const newAnimal = new BaseAnimal(this.type, `${this.name}'s child`)
         world.worldEventHandler.addWorldElement(newAnimal, world)
-
     }
     makeSound(): void {
 
@@ -48,6 +55,11 @@ export class BasePlant implements IPlant {
     height = 0
     name: string
     type: PlantTypes
+    static getRandomType(): PlantTypes {
+        const allTypes = Object.values(PlantTypes)
+        const randomNumber = Math.floor(Math.random() * allTypes.length)
+        return allTypes[randomNumber]
+    }
     constructor(t: PlantTypes, name = "") {
         this.type = t
         this.name = name
@@ -95,9 +107,11 @@ export class EarthWorldEventHandler implements IWorldEventHandler {
             throw new Error(`World not defined!`)
         }
         if (world instanceof Earth) {
-            this.addWorldElement(new BaseAnimal(AnimalTypes.fish), world)
-            this.addWorldElement(new BaseAnimal(AnimalTypes.dinosaur), world)
+            //Every day add 10 animals and 50 plants
+            new Array(10).fill(0).forEach(_ => this.addWorldElement(new BaseAnimal(BaseAnimal.getRandomType()), world))
+            new Array(5).fill(0).forEach(_ => this.addWorldElement(new BasePlant(BasePlant.getRandomType()), world))
         }
+        //At the end of each day check if each animal has reached it's reproduction cycle TODO Implement constraints in terms of coupling and proximity
         world.worldElements.forEach(e => {
             if (e instanceof BaseAnimal && world.days % e.reproductionCycle === 0) {
                 e.reproduce(world)
@@ -123,11 +137,7 @@ export class Earth extends World {
     constructor() {
         super()
         this.setInterval()
-        const myDino = new BaseAnimal(AnimalTypes.dinosaur, "Stegasouraus")
-        const myTree = new BasePlant(PlantTypes.evergreen, "Spruce")
         this.name = "Earth"
-        this.worldEventHandler.addWorldElement(myDino, this)
-        this.worldEventHandler.addWorldElement(myTree, this)
     }
     cleanUp = () => {
         this.timeInterval ? clearInterval(this.timeInterval) : null
@@ -154,8 +164,8 @@ export class Earth extends World {
             hour of the day ${this.hourOfDay}
             this.worldElement ${this.worldElements.length}
         `)
-        Object.entries(plantCounts).forEach(c => console.log(`${c[1]} Plants ${c[0]}`))
-        Object.entries(animalCounts).forEach(c => console.log(`${c[1]} Animals ${c[0]}`))
+        Object.entries(plantCounts).forEach(c => console.log(`${c[1]} ${c[0]} Plant`))
+        Object.entries(animalCounts).forEach(c => console.log(`${c[1]} ${c[0]} Animal`))
     }
     handleDayOver = () => {
         this.worldEventHandler.handleDayOver(this)
