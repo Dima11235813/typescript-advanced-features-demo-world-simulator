@@ -1,16 +1,30 @@
-import { BaseAnimal } from "./domain/animal"
-import { BasePlant } from "./domain/plant"
+import { BaseAnimal, IAnimal } from "./domain/world-organism/animal.model"
+import { BasePlant, IPlant } from "./domain/world-organism/plant.model"
+import { WorldOrganism } from "./domain/world-organism/world-organism.model"
 import { AnimalTypes } from "./domain/world-types/animal.type"
 import { PlantTypes } from "./domain/world-types/plant.type"
 import { EarthWorldEventHandler } from "./domain/world-types/world-event-handler"
 import { World } from "./domain/world-types/world.type"
 
-export class Earth extends World {
-    worldElements: (BaseAnimal | BasePlant)[] = []
+export type EarthOrganismTypes = BaseAnimal | BasePlant
+
+export class Earth extends World<EarthWorldEventHandler<Earth>> {
+    add(t: EarthOrganismTypes) {
+        if (t instanceof BaseAnimal) {
+            // console.log("I was born")
+        } else if (t instanceof BasePlant) {
+            // console.log("I germinated")
+        }
+        const [x,y] = this.getRandEmpty()
+        t.coord = [x,y]
+        this.map[x][y] = t
+        this.worldElements.push(t)
+    }
+    worldElements: EarthOrganismTypes[] = []
     hourOfDay: number = 0
     hoursInTheDay: number = 24
     worldEventHandler = new EarthWorldEventHandler()
-
+    days: number = 0
     constructor() {
         super()
         this.setInterval()
@@ -21,6 +35,7 @@ export class Earth extends World {
     }
 
     ping = () => {
+        // Creates a Record of all AnimalTypes/PlantTypes and sets their count to 0
         let animalCounts: Record<AnimalTypes, number> = Object.entries(AnimalTypes).reduce((accum, curr) => ({
             ...accum,
             [curr[0]]: 0
@@ -29,6 +44,7 @@ export class Earth extends World {
             ...accum,
             [curr[0]]: 0
         }), {} as Record<PlantTypes, number>)
+        // counts each instance of AnimalTypes and PlantTypes
         this.worldElements.forEach((e) => {
             if (e instanceof BaseAnimal) {
                 animalCounts[e.type] += 1
