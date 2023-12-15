@@ -1,4 +1,5 @@
-export interface WorldOrganism<T> {
+export interface WorldOrganism {
     name: string
-    type: T
+    coord: number[] | null
+    planet: string
 }
