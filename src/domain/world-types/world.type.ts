@@ -6,6 +6,8 @@ export abstract class World<EV> {
     name: string = ""
     timeInterval: NodeJS.Timeout | null = null
     days: number = 1
+    population: number = 0
+    populationLimit: number = 200000
     map!: WorldOrganism[][] // I think we don't need to wrap O in WorldOrganism
     occupiedCoords = {}
     static MAP_DEFAULT_WIDTH = 100
