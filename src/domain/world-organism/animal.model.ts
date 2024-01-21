@@ -1,7 +1,7 @@
 import { AnimalTypes } from "../world-types/animal.type"
-import { WorldOrganism } from "./world-organism.model"
+import { IWorldOrganism } from "./world-organism.model"
 
-export interface IAnimal extends WorldOrganism<AnimalTypes> {
+export interface IAnimal extends IWorldOrganism<AnimalTypes> {
     numberOfLegs: number
     makeSound(): void
 }

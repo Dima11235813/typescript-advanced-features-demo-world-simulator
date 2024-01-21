@@ -1,7 +1,7 @@
 import { PlantTypes } from "../world-types/plant.type"
-import { WorldOrganism } from "./world-organism.model"
+import { IWorldOrganism } from "./world-organism.model"
 
-export interface IPlant extends WorldOrganism<PlantTypes> {
+export interface IPlant extends IWorldOrganism<PlantTypes> {
     growthFactor: number
     grow(): void
 }
