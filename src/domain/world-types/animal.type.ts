@@ -18,5 +18,5 @@ export enum AnimalTypes {
     omnivores = 'omnivores',
     marsupials = 'marsupials',
     rodents = 'rodents',
-    aquatic_animals = 'aquatic animals'
+    aquatic_animals = 'aquatic_animals'
 }
