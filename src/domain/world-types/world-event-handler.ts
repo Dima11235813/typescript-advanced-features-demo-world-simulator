@@ -21,6 +21,7 @@ export class EarthWorldEventHandler<W extends Earth> implements IWorldEventHandl
         //Every day add 10 animals and 50 plants ** is this adding 10 and 5?
         new Array(10).fill(0).forEach(_ => this.addWorldElement(new BaseAnimal(BaseAnimal.getRandomType()), world))
         new Array(5).fill(0).forEach(_ => this.addWorldElement(new BasePlant(BasePlant.getRandomType()), world))
+        }
         //At the end of each day check if each animal has reached it's reproduction cycle TODO Implement constraints in terms of coupling and proximity
         
         let survivors: (BaseAnimal | BasePlant)[] = []

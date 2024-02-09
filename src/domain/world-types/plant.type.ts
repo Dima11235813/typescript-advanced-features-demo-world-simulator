@@ -21,7 +21,7 @@ export enum PlantTypes {
     fir = 'fir',
     iris = 'iris',
     yucca = 'yucca',
-    cherryBlossom = 'cherry blossom',
+    cherryBlossom = 'cherry_blossom',
     hibiscus = 'hibiscus',
     juniper = 'juniper',
     cypress = 'cypress',
@@ -47,6 +47,6 @@ export enum PlantTypes {
     wisteria = 'wisteria',
     zinnia = 'zinnia',
     camellia = 'camellia',
-    aloeVera = 'aloe vera',
+    aloeVera = 'aloe_vera',
     geranium = 'geranium'
 }
