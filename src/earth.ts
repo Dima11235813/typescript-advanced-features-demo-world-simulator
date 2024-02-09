@@ -18,6 +18,7 @@ export class Earth extends World<EarthWorldEventHandler<Earth>> {
         const [x,y] = this.getRandEmpty()
         t.coord = [x,y]
         this.map[x][y] = t
+        this.population += 1;
         this.worldElements.push(t)
     }
     worldElements: EarthOrganismTypes[] = []
@@ -35,6 +36,8 @@ export class Earth extends World<EarthWorldEventHandler<Earth>> {
     }
 
     ping = () => {
+        let totalAnimals = 0
+        let totalPlants = 0
         // Creates a Record of all AnimalTypes/PlantTypes and sets their count to 0
         let animalCounts: Record<AnimalTypes, number> = Object.entries(AnimalTypes).reduce((accum, curr) => ({
             ...accum,
@@ -48,8 +51,10 @@ export class Earth extends World<EarthWorldEventHandler<Earth>> {
         this.worldElements.forEach((e) => {
             if (e instanceof BaseAnimal) {
                 animalCounts[e.type] += 1
+                totalAnimals++
             } else if (e instanceof BasePlant) {
                 plantCounts[e.type] += 1
+                totalPlants++
             }
         })
         console.log(`
@@ -57,8 +62,10 @@ export class Earth extends World<EarthWorldEventHandler<Earth>> {
             hour of the day ${this.hourOfDay}
             this.worldElement ${this.worldElements.length}
         `)
-        Object.entries(plantCounts).forEach(c => console.log(`${c[1]} ${c[0]} Plant`))
-        Object.entries(animalCounts).forEach(c => console.log(`${c[1]} ${c[0]} Animal`))
+        console.log(`${totalAnimals} Animals`)
+        console.log(`${totalPlants} Plants`)
+        // Object.entries(plantCounts).forEach(c => console.log(`${c[1]} ${c[0]} Plant`))
+        // Object.entries(animalCounts).forEach(c => console.log(`${c[1]} ${c[0]} Animal`))
     }
     handleDayOver = () => {
         this.worldEventHandler.handleDayOver(this)
